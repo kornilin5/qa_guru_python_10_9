@@ -1,40 +1,35 @@
 import allure
-from selene.support import by
-from selene.support.conditions import be
-from selene.support.shared import browser
+from selene import browser, by, be
 from selene.support.shared.jquery_style import s
 from allure_commons.types import Severity
-
 from utils.fixture_steps import open_main_page, open_issue_tab, search_for_repository, go_to_repository, \
     should_see_issue_with_number
 
 
 @allure.tag('Github')
 @allure.severity(Severity.NORMAL)
-@allure.label('Owner', 'eroshenkoam')
+@allure.label('Owner', 'Kornilin5')
 @allure.feature("Tasks in repository")
 @allure.story('Checking issue № 76')
 @allure.link('https://github.com', name='Testing')
 def test_dynamic_steps():
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
-    with allure.step("Открываем главную страницу"):
-        browser.open('https://github.com')
+
+    with allure.step("Открыть главную страницу"):
+        browser.open("/")
 
     with allure.step("Ищем репозитория"):
-        browser.element(".header-search-button").click()
-        browser.element("#query-builder-test").send_keys(
-            "eroshenkoam/allure-example")
-        browser.element("#query-builder-test").submit()
+        s(".header-search-button").click()
+        s("#query-builder-test").send_keys("eroshenkoam/allure-example")
+        s("#query-builder-test").submit()
 
     with allure.step("Переходим по ссылке репозитория"):
-        browser.element(by.link_text("eroshenkoam/allure-example")).click()
+        s(by.link_text("eroshenkoam/allure-example")).click()
 
     with allure.step("Открываем таб Issues"):
-        browser.element("#issues-tab").click()
+        s("#issues-tab").click()
 
     with allure.step("Проверяем наличие Issue с номером 76"):
-        browser.element(by.partial_text("#76")).should(be.visible)
+        s(by.partial_text("#76")).should(be.visible)
 
 
 @allure.tag('Github')
