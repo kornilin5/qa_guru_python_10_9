@@ -14,9 +14,10 @@ from utils.fixture_steps import open_main_page, open_issue_tab, search_for_repos
 @allure.link('https://github.com', name='Testing')
 def test_dynamic_steps():
 
-    with allure.step("Открыть главную страницу"):
+    with allure.step("Открываем страницу"):
         browser.open("/")
 
+    
     with allure.step("Ищем репозитория"):
         s(".header-search-button").click()
         s("#query-builder-test").send_keys("eroshenkoam/allure-example")
